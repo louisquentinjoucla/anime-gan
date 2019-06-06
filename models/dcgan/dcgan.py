@@ -1,4 +1,6 @@
-
+# coding=utf-
+import matplotlib
+matplotlib.use('Agg')
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -108,14 +110,14 @@ def generate_and_save_images(model, epoch, test_input):
       plt.axis('off')
 
   plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
-  plt.show()
+ # plt.show()
 
 
 
 def train(dataset, epochs):
   for epoch in range(epochs):
     start = time.time()
-
+    print("Going into the {} epoch".format(epoch))
     for image_batch in dataset:
       train_step(image_batch)
 
@@ -126,7 +128,7 @@ def train(dataset, epochs):
                              seed)
 
     # Save the model every 15 epochs
-    if (epoch + 1) % 15 == 0:
+    if (epoch + 1) % 5 == 0:
       checkpoint.save(file_prefix = checkpoint_prefix)
 
     print ('Time for epoch {} is {} sec'.format(epoch + 1, time.time()-start))
