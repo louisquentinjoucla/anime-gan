@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import os
 import time
 from IPython import display
+import argparse
 
 from generator import make_generator_model
 from preprocessor import preprocess_image
@@ -15,13 +16,26 @@ from generator import make_generator_model
 
 print(tf.__version__)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--epochs', type=int, default=50, help='Number of epochs')
+    parser.add_argument('--batch-size', type=int, default=256, help='Batch size')
+    parser.add_argument('--dataset-size', type=int, default=20000, help='Number of elements to pick from dataset')
+    parser.add_argument('--name', type=str, default="default", help='Name of test (output will be stored in /tests/name/*)')
+
 ##### PARAMETERS ##### 
 
-EPOCHS = 50
+FLAGS, unparsed = parser.parse_known_args() 
+
+TEST_NAME = FLAGS.name
+EPOCHS = FLAGS.epochs
+BATCH_SIZE = FLAGS.batch_size
+DATASET_SIZE = FLAGS.dataset_size
 noise_dim = 100
 num_examples_to_generate = 16
-BATCH_SIZE = 256
-DATASET_SIZE= 20000
+
+print(TEST_NAME, EPOCHS, BATCH_SIZE, DATASET_SIZE)
+
 
 # Récupération des fichiers images
 import pathlib
@@ -109,7 +123,7 @@ def generate_and_save_images(model, epoch, test_input):
       plt.imshow(predictions[i, :, :, 0] * 127.5 + 127.5, cmap='gray')
       plt.axis('off')
 
-  plt.savefig('image_at_epoch_{:04d}.png'.format(epoch))
+  plt.savefig('tests/{}/image_at_epoch_{:04d}.png'.format(TEST_NAME, epoch))
  # plt.show()
 
 
