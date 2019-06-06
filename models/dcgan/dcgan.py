@@ -36,6 +36,10 @@ num_examples_to_generate = 16
 
 print(TEST_NAME, EPOCHS, BATCH_SIZE, DATASET_SIZE)
 
+def ensure_dir(file_path):
+  directory = os.path.dirname(file_path)
+  if not os.path.exists(directory):
+    os.makedirs(directory)
 
 # Récupération des fichiers images
 import pathlib
@@ -83,6 +87,12 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 
+test_output_dir = 'tests/dcgan/{}'.format(TEST_NAME)
+
+# Check that required directories are present and created
+ensure_dir('tests/dcgan')
+ensure_dir(test_output_dir)
+ensure_dir(checkpoint_dir)
 
 # We will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -123,9 +133,8 @@ def generate_and_save_images(model, epoch, test_input):
       plt.imshow(predictions[i, :, :, 0] * 127.5 + 127.5, cmap='gray')
       plt.axis('off')
 
-  plt.savefig('tests/{}/image_at_epoch_{:04d}.png'.format(TEST_NAME, epoch))
+  plt.savefig('{}/{:04d}.png'.format(test_output_dir, epoch))
  # plt.show()
-
 
 
 def train(dataset, epochs):
