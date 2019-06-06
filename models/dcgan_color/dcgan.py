@@ -35,7 +35,7 @@ images_ds = make_preprocessor(DATASET_SIZE, BATCH_SIZE)
 # Calcul la valeur du loss
 cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
-# Creation du générateur
+# Creation du generateur
 generator= make_generator_model()
 
 
@@ -43,7 +43,7 @@ discriminator = make_discriminator_model()
 
 
 
-# Génération du bruit
+# Generation du bruit
 noise = tf.random.normal([1, 100])
 generated_image = generator(noise, training=False)
 # plt.imshow(generated_image[0, :, :, 0], cmap='gray')
@@ -98,7 +98,7 @@ def train_step(images):
 
 
 def generate_and_save_images(model, epoch, test_input):
-  # Notice `training` is set to False.
+  # Notice training is set to False.
   # This is so all layers run in inference mode (batchnorm).
   predictions = model(test_input, training=False)
 

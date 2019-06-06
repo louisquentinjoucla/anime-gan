@@ -15,13 +15,13 @@ def preprocess_image(path):
 	
 def make_preprocessor(DATASET_SIZE, BATCH_SIZE):
 
-	# Récupération des fichiers images
+	# Recuperation des fichiers images
 	images = [str(path) for path in list(pathlib.Path("datasets/datanime").glob('*'))]
 
-	# Création d'un tf.Dataset à partir des fichiers images
+	# Creation d'un tf.Dataset à partir des fichiers images
 	paths_ds = tf.data.Dataset.from_tensor_slices(images)
 
-	# Appel de la fonction de préprocessing sur le dataset
+	# Appel de la fonction de preprocessing sur le dataset
 	images_ds = paths_ds.map(preprocess_image, num_parallel_calls=tf.data.experimental.AUTOTUNE).shuffle(DATASET_SIZE).batch(BATCH_SIZE)
 
 	return images_ds
