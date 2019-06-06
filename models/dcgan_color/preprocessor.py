@@ -18,7 +18,7 @@ def make_preprocessor(DATASET_SIZE, BATCH_SIZE):
 	# Recuperation des fichiers images
 	images = [str(path) for path in list(pathlib.Path("datasets/datanime").glob('*'))]
 
-	# Creation d'un tf.Dataset à partir des fichiers images
+	# Creation d'un tf.Dataset a partir des fichiers images
 	paths_ds = tf.data.Dataset.from_tensor_slices(images)
 
 	# Appel de la fonction de preprocessing sur le dataset
