@@ -15,6 +15,7 @@ from discriminator import make_discriminator_model
 from discriminator import discriminator_loss
 from utils import parse_arguments
 from utils import ensure_dirs
+
 print(tf.__version__)
 
 ##### PARAMETERS ##### 
@@ -28,6 +29,8 @@ num_examples_to_generate = 16
 
 # Load dataset
 images_ds = make_preprocessor(DATASET_SIZE, BATCH_SIZE)
+
+#show_image(images_ds)
 
 # Calcul la valeur du loss
 cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
@@ -103,7 +106,7 @@ def generate_and_save_images(model, epoch, test_input):
 
   for i in range(predictions.shape[0]):
       plt.subplot(4, 4, i+1)
-      plt.imshow(predictions[i, :, :, 0] * 127.5 + 127.5, cmap='gray')
+      plt.imshow(predictions[i, :, :, :] * 255)
       plt.axis('off')
 
   plt.savefig('{}/{:04d}.png'.format(test_output_dir, epoch))
