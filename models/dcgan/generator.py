@@ -31,4 +31,7 @@ def make_generator_model():
     return model
 
 
+def generator_loss(cross_entropy ,fake_output):
+    return cross_entropy(tf.ones_like(fake_output), fake_output)
+
 

@@ -7,26 +7,18 @@ import matplotlib.pyplot as plt
 import os
 import time
 from IPython import display
-import argparse
 
+from preprocessor import make_preprocessor
 from generator import make_generator_model
-from preprocessor import preprocess_image
+from generator import generator_loss
 from discriminator import make_discriminator_model
-from generator import make_generator_model
-
+from discriminator import discriminator_loss
+from utils import parse_arguments
+from utils import ensure_dirs
 print(tf.__version__)
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=50, help='Number of epochs')
-    parser.add_argument('--batch-size', type=int, default=256, help='Batch size')
-    parser.add_argument('--dataset-size', type=int, default=20000, help='Number of elements to pick from dataset')
-    parser.add_argument('--name', type=str, default="default", help='Name of test (output will be stored in /tests/name/*)')
-
 ##### PARAMETERS ##### 
-
-FLAGS, unparsed = parser.parse_known_args() 
-
+FLAGS, unparsed = parse_arguments()
 TEST_NAME = FLAGS.name
 EPOCHS = FLAGS.epochs
 BATCH_SIZE = FLAGS.batch_size
@@ -34,26 +26,18 @@ DATASET_SIZE = FLAGS.dataset_size
 noise_dim = 100
 num_examples_to_generate = 16
 
-print(TEST_NAME, EPOCHS, BATCH_SIZE, DATASET_SIZE)
+# Load dataset
+images_ds = make_preprocessor(DATASET_SIZE, BATCH_SIZE)
 
-def ensure_dir(file_path):
-  directory = os.path.dirname(file_path)
-  print (directory)
-  if not os.path.exists(directory):
-    os.makedirs(directory)
-
-# Récupération des fichiers images
-import pathlib
-images = [str(path) for path in list(pathlib.Path("datasets/datanime").glob('*'))]
-
-# Création d'un tf.Dataset à partir des fichiers images
-paths_ds = tf.data.Dataset.from_tensor_slices(images)
-
-# Appel de la fonction de préprocessing sur le dataset
-images_ds = paths_ds.map(preprocess_image, num_parallel_calls=tf.data.experimental.AUTOTUNE).shuffle(DATASET_SIZE).batch(BATCH_SIZE)
+# Calcul la valeur du loss
+cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
 
 # Creation du générateur
-generator = make_generator_model()
+generator= make_generator_model()
+
+
+discriminator = make_discriminator_model()
+
 
 
 # Génération du bruit
@@ -66,21 +50,11 @@ decision = discriminator(generated_image)
 print (decision)
 
 
-# Calcul la valeur du loss
-cross_entropy = tf.keras.losses.BinaryCrossentropy(from_logits=True)
-
-def generator_loss(fake_output):
-    return cross_entropy(tf.ones_like(fake_output), fake_output)
-
-def discriminator_loss(real_output, fake_output):
-    real_loss = cross_entropy(tf.ones_like(real_output), real_output)
-    fake_loss = cross_entropy(tf.zeros_like(fake_output), fake_output)
-    total_loss = real_loss + fake_loss
-    return total_loss
-
 generator_optimizer = tf.keras.optimizers.Adam(1e-4)
 discriminator_optimizer = tf.keras.optimizers.Adam(1e-4)
 
+
+test_output_dir = 'tests/dcgan/{}'.format(TEST_NAME)
 checkpoint_dir = './training_checkpoints/dcgan/{}'.format(TEST_NAME)
 checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
 checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
@@ -88,12 +62,10 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 
-test_output_dir = 'tests/dcgan/{}'.format(TEST_NAME)
+
 
 # Check that required directories are present and created
-ensure_dir('tests/dcgan/_')
-ensure_dir('{}/_'.format(test_output_dir))
-ensure_dir('{}/_'.format(checkpoint_dir))
+ensure_dirs(test_output_dir, checkpoint_dir)
 
 # We will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
@@ -112,8 +84,8 @@ def train_step(images):
       real_output = discriminator(images, training=True)
       fake_output = discriminator(generated_images, training=True)
 
-      gen_loss = generator_loss(fake_output)
-      disc_loss = discriminator_loss(real_output, fake_output)
+      gen_loss = generator_loss(cross_entropy, fake_output)
+      disc_loss = discriminator_loss(cross_entropy, real_output, fake_output)
 
     gradients_of_generator = gen_tape.gradient(gen_loss, generator.trainable_variables)
     gradients_of_discriminator = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
