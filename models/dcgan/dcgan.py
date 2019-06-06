@@ -6,27 +6,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import time
+import pathlib
 from IPython import display
-import argparse
 
 from generator import make_generator_model
 from preprocessor import preprocess_image
 from discriminator import make_discriminator_model
 from generator import make_generator_model
-
+from utils import parse_arguments
+from utils import ensure_dirs
 print(tf.__version__)
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=50, help='Number of epochs')
-    parser.add_argument('--batch-size', type=int, default=256, help='Batch size')
-    parser.add_argument('--dataset-size', type=int, default=20000, help='Number of elements to pick from dataset')
-    parser.add_argument('--name', type=str, default="default", help='Name of test (output will be stored in /tests/name/*)')
-
 ##### PARAMETERS ##### 
-
-FLAGS, unparsed = parser.parse_known_args() 
-
+FLAGS, unparsed = parse_arguments()
 TEST_NAME = FLAGS.name
 EPOCHS = FLAGS.epochs
 BATCH_SIZE = FLAGS.batch_size
@@ -34,16 +26,7 @@ DATASET_SIZE = FLAGS.dataset_size
 noise_dim = 100
 num_examples_to_generate = 16
 
-print(TEST_NAME, EPOCHS, BATCH_SIZE, DATASET_SIZE)
-
-def ensure_dir(file_path):
-  directory = os.path.dirname(file_path)
-  print (directory)
-  if not os.path.exists(directory):
-    os.makedirs(directory)
-
 # Récupération des fichiers images
-import pathlib
 images = [str(path) for path in list(pathlib.Path("datasets/datanime").glob('*'))]
 
 # Création d'un tf.Dataset à partir des fichiers images
@@ -52,9 +35,9 @@ paths_ds = tf.data.Dataset.from_tensor_slices(images)
 # Appel de la fonction de préprocessing sur le dataset
 images_ds = paths_ds.map(preprocess_image, num_parallel_calls=tf.data.experimental.AUTOTUNE).shuffle(DATASET_SIZE).batch(BATCH_SIZE)
 
+
 # Creation du générateur
 generator = make_generator_model()
-
 
 # Génération du bruit
 noise = tf.random.normal([1, 100])
@@ -91,9 +74,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 test_output_dir = 'tests/dcgan/{}'.format(TEST_NAME)
 
 # Check that required directories are present and created
-ensure_dir('tests/dcgan/_')
-ensure_dir('{}/_'.format(test_output_dir))
-ensure_dir('{}/_'.format(checkpoint_dir))
+ensure_dirs(test_output_dir, checkpoint_dir)
 
 # We will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
