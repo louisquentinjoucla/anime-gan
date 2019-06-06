@@ -38,6 +38,7 @@ print(TEST_NAME, EPOCHS, BATCH_SIZE, DATASET_SIZE)
 
 def ensure_dir(file_path):
   directory = os.path.dirname(file_path)
+  print (directory)
   if not os.path.exists(directory):
     os.makedirs(directory)
 
@@ -90,9 +91,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 test_output_dir = 'tests/dcgan/{}'.format(TEST_NAME)
 
 # Check that required directories are present and created
-ensure_dir('tests/dcgan')
-ensure_dir(test_output_dir)
-ensure_dir(checkpoint_dir)
+ensure_dir('tests/dcgan/_')
+ensure_dir('{}/_'.format(test_output_dir))
+ensure_dir('{}/_'.format(checkpoint_dir))
 
 # We will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
