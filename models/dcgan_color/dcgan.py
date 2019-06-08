@@ -72,7 +72,7 @@ ensure_dirs(test_output_dir, checkpoint_dir)
 
 # We will reuse this seed overtime (so it's easier)
 # to visualize progress in the animated GIF)
-seed = tf.random.normal([num_examples_to_generate, noise_dim])
+seed = tf.random.po([num_examples_to_generate, noise_dim])
 
 
 # Notice the use of <a href="../../../versions/r2.0/api_docs/python/tf/function"><code>tf.function</code></a>

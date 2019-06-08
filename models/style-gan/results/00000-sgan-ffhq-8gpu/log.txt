@@ -1,0 +1,20 @@
+dnnlib: Running training.training_loop.training_loop() on localhost...
+Streaming data using training.dataset.TFRecordDataset...
+Traceback (most recent call last):
+  File "train.py", line 190, in <module>
+    main()
+  File "train.py", line 185, in main
+    dnnlib.submit_run(**kwargs)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\dnnlib\submission\submit.py", line 290, in submit_run
+    run_wrapper(submit_config)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\dnnlib\submission\submit.py", line 242, in run_wrapper
+    util.call_func_by_name(func_name=submit_config.run_func_name, submit_config=submit_config, **submit_config.run_func_kwargs)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\dnnlib\util.py", line 257, in call_func_by_name
+    return func_obj(*args, **kwargs)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\training\training_loop.py", line 146, in training_loop
+    training_set = dataset.load_dataset(data_dir=config.data_dir, verbose=True, **dataset_args)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\training\dataset.py", line 234, in load_dataset
+    dataset = dnnlib.util.get_obj_by_name(class_name)(**adjusted_kwargs)
+  File "C:\projet\UQAC\anime-gan\models\style-gan\training\dataset.py", line 70, in __init__
+    assert os.path.isdir(self.tfrecord_dir)
+AssertionError

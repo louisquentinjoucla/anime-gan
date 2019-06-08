@@ -1,0 +1,1 @@
+{'host_name': 'localhost', 'start_time': '2019-06-06 22:06:24.094730', 'task_name': 'Quentin-00000-sgan-ffhq-8gpu'}
