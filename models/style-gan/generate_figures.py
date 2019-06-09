@@ -14,6 +14,7 @@ import PIL.Image
 import dnnlib
 import dnnlib.tflib as tflib
 import config
+import random
 
 #----------------------------------------------------------------------------
 # Helpers for loading and using pre-trained generators.
@@ -150,16 +151,23 @@ def draw_truncation_trick_figure(png, Gs, w, h, seeds, psis):
 # Main program.
 
 def main():
+    psis_tr = []
+    for i in range(0, 100):
+        psis_tr.append(1-i/100)
+        psis_tr.append(-i/100)
+        psis_tr.append(-1)
+    
     tflib.init_tf()
     os.makedirs(config.result_dir, exist_ok=True)
-    draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure01-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=3, lods=[0,1,2,2,3,3], seed=5)
+    for i in range(0,100):
+        draw_uncurated_result_figure(os.path.join(config.result_dir, 'uncurated-anime-{i}.png'.format(i)), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=1, lods=[0], seed=random.randint(1,10100))
     #draw_style_mixing_figure(os.path.join(config.result_dir, 'figure03-style-mixing.png'), load_Gs2(url_anime), w=1024, h=1024, src_seeds=[639,701,687,615,2268], dst_seeds=[888,829,1898,1733,1614,845], style_ranges=[range(0,4)]*3+[range(4,8)]*2+[range(8,18)])
-    draw_noise_detail_figure(os.path.join(config.result_dir, 'figure04-noise-detail.png'), load_Gs2(url_anime), w=64, h=64, num_samples=100, seeds=[1157,1012])
-    draw_noise_components_figure(os.path.join(config.result_dir, 'figure05-noise-components.png'), load_Gs2(url_anime), w=64, h=64, seeds=[1967,1555], noise_ranges=[range(0, 18), range(0, 0), range(8, 18), range(0, 8)], flips=[1])
-    draw_truncation_trick_figure(os.path.join(config.result_dir, 'figure08-truncation-anime.png'), load_Gs2(url_anime), w=64, h=64, seeds=[91,388], psis=[1, 0.7, 0.5, 0, -0.5, -1])
-    draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure10-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=5, lods=[0,0,1,1,2,2,2], seed=0)
-    draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure11-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=64, cw=64, ch=64, rows=4, lods=[0,1,2,2,3,3], seed=2)
-    draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure12-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=5, lods=[0,0,1,1,2,2,2], seed=1)
+        draw_noise_detail_figure(os.path.join(config.result_dir, 'noise-detail-{}.png'.format(i)), load_Gs2(url_anime), w=64, h=64, num_samples=140, seeds=[random.randint(1,10100),random.randint(1,10100)])
+        #draw_noise_components_figure(os.path.join(config.result_dir, 'figure13-noise-components.png'), load_Gs2(url_anime), w=64, h=64, seeds=[1967,1555], noise_ranges=[range(0, 18), range(0, 0), range(8, 18), range(0, 8)], flips=[1])
+        draw_truncation_trick_figure(os.path.join(config.result_dir, 'truncation-anime-{}.png'.format(i)), load_Gs2(url_anime), w=64, h=64, seeds=[random.randint(1,10100),random.randint(1,10100)], psis=psis_tr)
+    # draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure10-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=5, lods=[0,0,1,1,2,2,2], seed=0)
+    # draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure11-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=4, lods=[0,1,2,2,3,3], seed=2)
+    # draw_uncurated_result_figure(os.path.join(config.result_dir, 'figure12-uncurated-anime.png'), load_Gs2(url_anime), cx=0, cy=0, cw=64, ch=64, rows=5, lods=[0,0,1,1,2,2,2], seed=1)
 
 #----------------------------------------------------------------------------
 
