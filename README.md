@@ -50,8 +50,7 @@ Les résultats sont extrêmement convaincant, malgré quelques coquilles.
 
 ![Exemple 1](models/style-gan/results/multi-uncurated/multi-uncurated-anime-0.png)
 ![Exemple 2](models/style-gan/results/multi-uncurated/multi-uncurated-anime-1.png)
-![Exemple 3](models/style-gan/results/multi-uncurated/multi-uncurated-anime-2.png)
-![Exemple 4](models/style-gan/results/multi-uncurated/multi-uncurated-anime-3.png)
+![Exemple 3](models/style-gan/results/multi-uncurated/multi-uncurated-anime-3.png)
 
 ![Evolution 2](examples/ezgif-2-552f97d77f36.gif?raw=true)
 
