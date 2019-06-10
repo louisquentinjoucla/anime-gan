@@ -35,11 +35,11 @@ Nous avons commencé par générer des images en nuances de gris.
 Les résultats, bien que pas forcément convaincants, démontrent tout de même l'apparition de certaines "features".
 Avec un peu d'imagination, on peut distinguer des formes de bouches, d'yeux et de cheveux.
 
-![examples/ezgif-2-1f5a7f08edc8.gif?raw=true](DCGAN)
+![DCGAN](examples/ezgif-2-1f5a7f08edc8.gif?raw=true)
 
 Une tentative de DCGAN en couleur a également été tenté, mais s'est avérée un peu catastrophique.
 
-![tests/dcgan/gpu_color/0023.png?raw=true](DCGAN couleur)
+![DCGAN couleur](tests/dcgan/gpu_color/0023.png?raw=true)
 
 ### Style-GAN
 
@@ -48,12 +48,13 @@ Le style-gan est basé sur le modèle d'[Nvidia](https://github.com/NVlabs/style
 Nous avons dus transformer notre dataset et l'adapté pour l'entrée du modèle, ainsi que paramétrer celui-ci.
 Les résultats sont extrêmement convaincant, malgré quelques coquilles.
 
-![models/style-gan/results/multi-uncurated/multi-uncurated-anime-0.png](Exemple 1)
-![models/style-gan/results/multi-uncurated/multi-uncurated-anime-2.png](Exemple 2)
+![Exemple 1](models/style-gan/results/multi-uncurated/multi-uncurated-anime-0.png)
 
-![examples/ezgif-2-552f97d77f36.gif?raw=true](Evolution of training)
+![Exemple 2](models/style-gan/results/multi-uncurated/multi-uncurated-anime-2.png)
 
-![examples/ezgif-2-fc36ff1bc4ae.gif?raw=true](Transformation sur un exemple)
-![examples/ezgif-2-86a338d15214.gif?raw=true](Transformation sur un exemple)
-![examples/ezgif-2-c0096a70af7d.gif?raw=true](Transformation sur un exemple)
-![examples/ezgif-2-38b470117bbe.gif?raw=true](Transformation sur un exemple)
+![Evolution 2](examples/ezgif-2-552f97d77f36.gif?raw=true)
+
+![Transformation sur un exemple](examples/ezgif-2-fc36ff1bc4ae.gif?raw=true)
+![Transformation sur un exemple](examples/ezgif-2-86a338d15214.gif?raw=true)
+![Transformation sur un exemple](examples/ezgif-2-c0096a70af7d.gif?raw=true)
+![Transformation sur un exemple](examples/ezgif-2-38b470117bbe.gif?raw=true)
