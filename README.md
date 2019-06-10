@@ -4,7 +4,7 @@
 
 ## Recherches sur le fonctionnement des GANs
 
-Afin de sélectionner le modèle adéquat, nous avons dus nous documenter sur [l'état de l'art des GANs](https://towardsdatascience.com/must-read-papers-on-gans-b665bbae3317) ainsi que les [évolutions des modèles au cours du temps](https://towardsdatascience.com/explained-a-style-based-generator-architecture-for-gans-generating-and-tuning-realistic-6cb2be0f431).
+Afin de sélectionner le modèle adéquat, nous avons du nous documenter sur [l'état de l'art des GANs](https://towardsdatascience.com/must-read-papers-on-gans-b665bbae3317) ainsi que les [évolutions des modèles au cours du temps](https://towardsdatascience.com/explained-a-style-based-generator-architecture-for-gans-generating-and-tuning-realistic-6cb2be0f431).
 
 Deux types de modèle ont donc retenu notre attention par leurs fonctionnement différents, le premier étant le [DCGAN](https://arxiv.org/pdf/1511.06434) et le second étant le [style-gan](https://arxiv.org/pdf/1812.04948).
 
