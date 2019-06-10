@@ -4,7 +4,7 @@
 
 ## Recherches sur le fonctionnement des GANs
 
-Afin de sélectionner le modèle adéquat, nous avons dus nous documenter sur [l'état de l'art de GANs](https://towardsdatascience.com/must-read-papers-on-gans-b665bbae3317) ainsi que les [évolutions des modèles au cours du temps](https://towardsdatascience.com/explained-a-style-based-generator-architecture-for-gans-generating-and-tuning-realistic-6cb2be0f431).
+Afin de sélectionner le modèle adéquat, nous avons dus nous documenter sur [l'état de l'art des GANs](https://towardsdatascience.com/must-read-papers-on-gans-b665bbae3317) ainsi que les [évolutions des modèles au cours du temps](https://towardsdatascience.com/explained-a-style-based-generator-architecture-for-gans-generating-and-tuning-realistic-6cb2be0f431).
 
 Deux types de modèle ont donc retenu notre attention par leurs fonctionnement différents, le premier étant le [DCGAN](https://arxiv.org/pdf/1511.06434) et le second étant le [style-gan](https://arxiv.org/pdf/1812.04948).
 
@@ -21,7 +21,7 @@ Nous avons finalement opté pour le [Anime face dataset](https://github.com/Mcki
 
 Les GANs nécessite une puissance de calcul importante, et entrainer nos modèles sur nos machines n'étaient pas une chose envisageable. Par conséquent, nous avons recherché des offres cloud (amazon, azure, gcloud, paperspace...) accessibles avec GPU pour réduire au maximum les délais d'entraînement. 
 
-Les DCGAN ont étaient entrainés sur une machine mono-gpu (Nvidia K80) tandis que les Style-Gan sur des machines quad-gpu (Nvidia Tesla v100).
+Les DCGAN ont étaient entrainés sur une machine mono-gpu (Nvidia K80) tandis que les Style-GAN sur des machines quad-gpus (Nvidia Tesla v100).
 
 ### DCGAN
 
@@ -45,7 +45,7 @@ Une tentative de DCGAN en couleur a également été tenté, mais s'est avérée
 
 Le style-gan est basé sur le modèle d'[Nvidia](https://github.com/NVlabs/stylegan).
 
-Nous avons dus transformer notre dataset et l'adapté pour l'entrée du modèle, ainsi que paramétrer celui-ci.
+Nous avons du transformer notre dataset et l'adapter pour l'entrée du modèle, ainsi que paramétrer celui-ci.
 Les résultats sont extrêmement convaincant, malgré quelques coquilles.
 
 ![Exemple 1](models/style-gan/results/multi-uncurated/multi-uncurated-anime-0.png)
