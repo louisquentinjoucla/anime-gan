@@ -79,9 +79,9 @@ def main():
     #tasks += [EasyDict(run_func_name='run_metrics.run_all_snapshots', run_id=100)]
 
     # How many GPUs to use?
-    submit_config.num_gpus = 1
+    #submit_config.num_gpus = 1
     #submit_config.num_gpus = 2
-    #submit_config.num_gpus = 4
+    submit_config.num_gpus = 4
     #submit_config.num_gpus = 8
 
     # Execute.
