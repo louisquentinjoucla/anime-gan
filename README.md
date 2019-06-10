@@ -15,7 +15,7 @@ L'un des plus volumineux que nous ayons trouvé est le [Danbooru 2018](https://w
 
 Nous avons finalement opté pour le [Anime face dataset](https://github.com/Mckinsey666/Anime-Face-Dataset), qui, malgré quelques coquilles sur son contenu (présences d'images de seins et de fesses parmi les visages) est de bonne qualité. Néanmoins les images sont de tailles assez petites (64x64). Ci-dessous se trouve un échantillon du dataset.
 
-![examples/sample1.png?raw=true](Sample)
+![Sample](examples/sample1.png?raw=true)
 
 ## Modèles
 
