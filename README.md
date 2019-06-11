@@ -37,7 +37,7 @@ Avec un peu d'imagination, on peut distinguer des formes de bouches, d'yeux et d
 
 ![DCGAN](examples/ezgif-2-1f5a7f08edc8.gif?raw=true)
 
-Une tentative de DCGAN en couleur a également été tenté, mais s'est avérée un peu catastrophique.
+Une approche de DCGAN en couleur a également été tenté, mais s'est avérée un peu catastrophique.
 
 ![DCGAN couleur](tests/dcgan/gpu_color/0023.png?raw=true)
 
