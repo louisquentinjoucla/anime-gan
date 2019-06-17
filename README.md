@@ -90,14 +90,14 @@ Voici les résultats :
 
 ![Résultats](examples/results.png)
 
-A partir des données recueillies, nous avons généré les matrics des confusion de chacun des sujets :
+A partir des données recueillies, nous avons généré les matrices des confusion de chacun des sujets :
 
 ![Confusion](examples/confusion.png)
 
 ![Kappa](examples/kappa.png)
 ![Kappa](examples/kappa2.png)
 
-On observe que les sujets 1,2 et 5 sont incapables de distinguer les images générées des réelles dans le dataset. Le sujet 3 semble pouvoir détecter partiellement les images créé par le GAN. Le sujet 4 semble le plus constant dans la distinction, selon lui, les expressions sont le plus souvent ce qui trahit les générations (c’est d’ailleurs le sujet le plus novice en informatique).
+On observe que les sujets 1,2 et 5 sont incapables de distinguer les images générées des réelles dans le dataset. Le sujet 3 semble pouvoir détecter partiellement les images créés par le GAN. Le sujet 4 semble le plus constant dans la distinction, selon lui, les expressions sont le plus souvent ce qui trahit les générations (c’est d’ailleurs le sujet le plus novice en informatique).
 
 Ce qui pousse les sujets à dire si une image est généré sont en premier lieux les déformations (souvent dues aux objets), l’absence d’attributs (nez, bouche, etc...) ainsi que le manque d’expression.
 
